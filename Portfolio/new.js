@@ -7,5 +7,5 @@ let userValue = prompt("What is your favorite number?");
 console.log("myNumber:", myNumber);
 console.log("userValue:", userValue);
 
-const html = <p>Number = ${myNumber}</p>
+const html = <p>Number = ${userValue}</p>
 document.write(html);
