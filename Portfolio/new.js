@@ -18,6 +18,5 @@ for (let i = 0; i < 5; i++) {
     startNumber = processNumber(startNumber);
 }
 
-
 console.log("myNumber:", myNumber);
 console.log("userValue:", userValue);
