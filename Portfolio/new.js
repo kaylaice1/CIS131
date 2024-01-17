@@ -1,5 +1,4 @@
 //KayLynn Johnson 01/17/23
-"use script";
 
 let myNumber = 5;
 myNumber = myNumber * 5;
