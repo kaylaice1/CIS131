@@ -14,7 +14,7 @@ function processNumber(value) {
     return value + 1;
 }
 
-let startNumber = 7;
+let startNumber = 1;
 
 for (let i = 0; i < 5; i++) {
     startNumber = processNumber(startNumber);
