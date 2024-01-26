@@ -1,3 +1,4 @@
+
 var myArray = [2, 5, 8, 11];
 
 var addOne = function (num) {
@@ -13,12 +14,6 @@ function checkNumber(func, number) {
     }
 }
 
-var userNumber = prompt("Enter a number:");
-
-if (!isNaN(userNumber)) {
-    for (var index in myArray) {
-        checkNumber(addOne, myArray[index] + parseInt(userNumber));
-    }
-} else {
-    console.log("Invalid input. Please enter a valid number.");
+for (var index in myArray) {
+    checkNumber(addOne, myArray[index]);
 }
