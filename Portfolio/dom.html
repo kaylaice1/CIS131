@@ -20,31 +20,31 @@
                 </li>
             </ul>
         </nav>
-    <div id="container">
-        <p>This is a temporary paragraph for testing.</p>
-    </div>
+        <div id="container">
+            <p>This is a temporary paragraph for testing.</p>
+        </div>
 
-    <script>
-        var containerDiv = document.getElementById('container');
+        <script>
+            var containerDiv = document.getElementById('container');
 
-        for (var i = 1; i <= 5; i++) {
-            var newParagraph = document.createElement('p');
-            newParagraph.textContent = 'Paragraph ' + i;
+            for (var i = 1; i <= 5; i++) {
+                var newParagraph = document.createElement('p');
+                newParagraph.textContent = 'Paragraph ' + i;
 
-            containerDiv.appendChild(newParagraph);
-        }
+                containerDiv.appendChild(newParagraph);
+            }
 
-        function changeColors() {
-            document.body.style.backgroundColor = '#003366';
-            containerDiv.style.backgroundColor = '#99cc00'; 
-            containerDiv.style.color = '#fff';
-        }
+            function changeColors() {
+                document.body.style.backgroundColor = '#003366';
+                containerDiv.style.backgroundColor = '#99cc00'; 
+                containerDiv.style.color = '#fff';
+            }
 
-        var button = document.createElement('button');
-        button.textContent = 'Change Colors';
-        button.onclick = changeColors;
+            var button = document.createElement('button');
+            button.textContent = 'Change Colors';
+            button.onclick = changeColors;
 
-        containerDiv.appendChild(button);
-    </script>
+            containerDiv.appendChild(button);
+        </script>
     </body>
 </html>
