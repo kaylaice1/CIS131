@@ -16,28 +16,40 @@ document.addEventListener('DOMContentLoaded', function () {
         // Clear previous stars
         document.getElementById('starContainer').innerHTML = '';
 
+        // Calculate the maximum number of rows and stars per row
+        const maxStarsPerRow = 20;
+        const maxRows = Math.ceil(starCount / maxStarsPerRow);
+
         // Loop to generate stars
-        for (let i = 0; i < starCount; i++) {
-            // Create a span element for each star
-            let starElement = document.createElement('span');
-            starElement.classList.add('star');
-            starElement.innerHTML = '★';
+        for (let row = 0; row < maxRows; row++) {
+            for (let col = 0; col < maxStarsPerRow && (row * maxStarsPerRow + col) < starCount; col++) {
+                // Create a span element for each star
+                let starElement = document.createElement('span');
+                starElement.classList.add('star');
+                starElement.innerHTML = '★';
 
-            // Set random positions for stars
-            setRandomPosition(starElement);
+                // Set random positions for stars within the container
+                setRandomPosition(starElement);
 
-            // Append the star to the star container
-            document.getElementById('starContainer').appendChild(starElement);
+                // Append the star to the star container
+                document.getElementById('starContainer').appendChild(starElement);
+            }
         }
     }
 
-    // Function to set random positions for stars
+    // Function to set random positions for stars within the container
     function setRandomPosition(starElement) {
         const containerWidth = document.getElementById('starContainer').offsetWidth;
         const containerHeight = document.getElementById('starContainer').offsetHeight;
 
-        const randomX = Math.floor(Math.random() * containerWidth);
-        const randomY = Math.floor(Math.random() * containerHeight);
+        const starSize = 24; // Assuming a fixed size for the stars
+
+        // Calculate the maximum position to avoid overlapping
+        const maxX = containerWidth - starSize;
+        const maxY = containerHeight - starSize;
+
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
 
         starElement.style.position = 'absolute';
         starElement.style.left = `${randomX}px`;
