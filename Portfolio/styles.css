@@ -1,0 +1,14 @@
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+
+#starContainer {
+    margin-top: 20px;
+    font-size: 24px;
+}
+
+.star {
+    color: gold;
+}
