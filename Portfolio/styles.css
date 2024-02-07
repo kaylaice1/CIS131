@@ -7,6 +7,8 @@ body {
 #starContainer {
     margin-top: 20px;
     font-size: 24px;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .star {
