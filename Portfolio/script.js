@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // Append the star to the star container
             document.getElementById('starContainer').appendChild(starElement);
 
-            // Add a line break after every 10 stars
-            if (i % 30 === 0) {
+            // Add a line break after every 50 stars
+            if (i % 50 === 0) {
                 document.getElementById('starContainer').appendChild(document.createElement('br'));
             }
         }
