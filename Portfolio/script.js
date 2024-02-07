@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('starContainer').innerHTML = '';
 
         // Loop to generate stars
-        for (let i = 0; i < starCount; i++) {
+        for (let i = 1; i <= starCount; i++) {
             // Create a span element for each star
             let starElement = document.createElement('span');
             starElement.classList.add('star');
@@ -25,6 +25,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Append the star to the star container
             document.getElementById('starContainer').appendChild(starElement);
+
+            // Add a line break after every 10 stars
+            if (i % 10 === 0) {
+                document.getElementById('starContainer').appendChild(document.createElement('br'));
+            }
         }
     }
 });
