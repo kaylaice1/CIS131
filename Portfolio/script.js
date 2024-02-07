@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to generate stars
     function generateStars() {
-        // Get the number of stars from the user
-        let starCount = parseInt(prompt('Enter the number of stars you want to generate:'));
+        // Get the number of stars from the user, with a maximum limit of 100
+        let starCount = parseInt(prompt('Enter the number of stars you want to generate (up to 100):'));
 
         // Validate user input
-        if (isNaN(starCount) || starCount <= 0) {
-            alert('Please enter a valid positive number.');
+        if (isNaN(starCount) || starCount <= 0 || starCount > 100) {
+            alert('Please enter a valid number between 1 and 100.');
             return;
         }
 
@@ -17,19 +17,30 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('starContainer').innerHTML = '';
 
         // Loop to generate stars
-        for (let i = 1; i <= starCount; i++) {
+        for (let i = 0; i < starCount; i++) {
             // Create a span element for each star
             let starElement = document.createElement('span');
             starElement.classList.add('star');
             starElement.innerHTML = '★';
 
+            // Set random positions for stars
+            setRandomPosition(starElement);
+
             // Append the star to the star container
             document.getElementById('starContainer').appendChild(starElement);
-
-            // Add a line break after every 50 stars
-            if (i % 50 === 0) {
-                document.getElementById('starContainer').appendChild(document.createElement('br'));
-            }
         }
+    }
+
+    // Function to set random positions for stars
+    function setRandomPosition(starElement) {
+        const containerWidth = document.getElementById('starContainer').offsetWidth;
+        const containerHeight = document.getElementById('starContainer').offsetHeight;
+
+        const randomX = Math.floor(Math.random() * containerWidth);
+        const randomY = Math.floor(Math.random() * containerHeight);
+
+        starElement.style.position = 'absolute';
+        starElement.style.left = `${randomX}px`;
+        starElement.style.top = `${randomY}px`;
     }
 });
