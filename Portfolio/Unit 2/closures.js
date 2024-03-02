@@ -30,7 +30,7 @@ function createCharacter(Name, HP, ...moves) {
 }
 
 // Step 4: Create a new variable and set it equal to the result of the function
-const myCharacter = createCharacter("Hero", 100, "Attack", "Defend", "Special Move");
+const myCharacter = createCharacter("Martin", 100, "Attack", "Defend", "Special Move");
 
 // Step 5: Call the method to append moves to the page
 myCharacter.appendMovesToPage();
