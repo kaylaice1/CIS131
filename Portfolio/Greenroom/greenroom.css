@@ -1,11 +1,14 @@
-.header h1 {
-    color:green;
-    text-align: center;
-    top: 18px;
-    left: 100px;
-}
 .header img {
-    border-radius: 4px;
-    padding: 5px;
+    float: left;
     width: 150px;
-}
+    height: 150px;
+    background: #555;
+  }
+  
+  .header h1 {
+    color: green;
+    position: relative;
+    top: 50px;
+    left: 175px;
+  }
+  
