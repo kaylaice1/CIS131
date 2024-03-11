@@ -1,10 +1,10 @@
-header h1 {
+.header h1 {
     color:green;
     text-align: center;
     top: 18px;
     left: 100px;
 }
-header img {
+.header img {
     border-radius: 4px;
     padding: 5px;
     width: 150px;
