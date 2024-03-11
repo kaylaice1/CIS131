@@ -1,13 +1,11 @@
-h1 {
+header h1 {
     color:green;
     text-align: center;
-    
+    display: inline-block
 }
-img {
+header img {
     border-radius: 4px;
     padding: 5px;
     width: 150px;
-    display: inline
+    display: inline-block
 }
-
-.dis{display: inline}
