@@ -1,11 +1,11 @@
 header h1 {
     color:green;
     text-align: center;
-    display: inline-block
+    top: 18px;
+    left: 100px;
 }
 header img {
     border-radius: 4px;
     padding: 5px;
     width: 150px;
-    display: inline-block
 }
