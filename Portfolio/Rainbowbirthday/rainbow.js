@@ -20,7 +20,7 @@ function showQuoteSlides() {
     }
 
     quoteSlides[quoteIndex - 1].style.display = "block";
-    quoteTimer = setTimeout(showQuoteSlides, 5000); 
+    quoteTimer = setTimeout(showQuoteSlides, 10000); 
 }
 
 // Photo Slideshow
