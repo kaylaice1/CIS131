@@ -45,7 +45,7 @@ function showPhotoSlides() {
     }
 
     photoSlides[photoIndex - 1].style.display = "block";
-    photoTimer = setTimeout(showPhotoSlides, 3000); // Change photo slide every 3 seconds (3000 milliseconds)
+    photoTimer = setTimeout(showPhotoSlides, 5000); // Change photo slide every 3 seconds (3000 milliseconds)
 }
 
 // Start both slideshows when the page loads
