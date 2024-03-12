@@ -30,17 +30,13 @@ header {
     display: none;
 }
 
-.prev,
-.next {
-    display: none; /* Hide the navigation buttons */
-}
-
-/* Style for photo slides */
-.photoSlides {
+.quoteSlide,
+.photoSlide {
+    width: 100%;
     display: none;
 }
 
-.photoSlides img {
-    width: 100%; /* Ensure all images fill their containers */
-    height: auto; /* Maintain aspect ratio */
+.photoSlide img {
+    width: 100%;
+    height: auto;
 }
