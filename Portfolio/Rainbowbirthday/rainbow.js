@@ -3,7 +3,7 @@ let quoteIndex = 0;
 let quoteTimer; // Timer for the quote slideshow
 
 function showQuoteSlides() {
-    const quoteSlides = document.querySelectorAll(".quote-slideshow-container .quoteSlides");
+    const quoteSlides = document.querySelectorAll(".quote-slideshow-container .quoteSlide");
 
     for (let i = 0; i < quoteSlides.length; i++) {
         quoteSlides[i].style.display = "none";
@@ -24,7 +24,7 @@ let photoIndex = 0;
 let photoTimer; // Timer for the photo slideshow
 
 function showPhotoSlides() {
-    const photoSlides = document.querySelectorAll(".photo-slideshow-container .photoSlides");
+    const photoSlides = document.querySelectorAll(".photo-slideshow-container .photoSlide");
 
     for (let i = 0; i < photoSlides.length; i++) {
         photoSlides[i].style.display = "none";
