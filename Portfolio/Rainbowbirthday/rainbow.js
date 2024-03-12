@@ -1,4 +1,5 @@
 let slideIndex = 0;
+let timer;
 
 function showSlides() {
     let i;
@@ -15,7 +16,9 @@ function showSlides() {
     }
 
     slides[slideIndex - 1].style.display = "block";
-    setTimeout(showSlides, 5000);
+    timer = setTimeout(showSlides, 3000);
 }
 
-showSlides();
+document.addEventListener("DOMContentLoaded", function() {
+    showSlides();
+});
