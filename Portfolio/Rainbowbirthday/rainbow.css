@@ -1,7 +1,8 @@
 body {
     font-family: 'Arial', sans-serif;
     text-align: center;
-    background-color: #f0f0f0;
+    background-color: #f0f0f0; /* Fallback background color */
+    background: linear-gradient(to right, rgba(238,130,238,0.3), rgba(75,0,130,0.3), rgba(0,0,255,0.3), rgba(0,255,0,0.3), rgba(255,255,0,0.3), rgba(255,127,0,0.3), rgba(255,0,0,0.3));
 }
 
 header {
