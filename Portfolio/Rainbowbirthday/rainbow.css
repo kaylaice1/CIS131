@@ -17,6 +17,7 @@ header {
     background-clip: text;
     color: transparent;
     margin: 0;
+    background-size: 150% 100%;
 }
 
 .slideshow-container {
