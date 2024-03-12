@@ -20,7 +20,7 @@ function showQuoteSlides() {
     }
 
     quoteSlides[quoteIndex - 1].style.display = "block";
-    quoteTimer = setTimeout(showQuoteSlides, 3000); // Change quote slide every 3 seconds (3000 milliseconds)
+    quoteTimer = setTimeout(showQuoteSlides, 5000); 
 }
 
 // Photo Slideshow
