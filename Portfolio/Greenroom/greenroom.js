@@ -1,11 +1,39 @@
-const input1 = document.getElementById('input1');
-const input2 = document.getElementById('input2');
-const output1 = document.getElementById('output1');
-const output2 = document.getElementById('output2');
+// Retrieve data from localStorage on page load
+document.addEventListener('DOMContentLoaded', function() {
+    input1.value = localStorage.getItem('input1Data') || '';
+    input2.value = localStorage.getItem('input2Data') || '';
+    output1.textContent = input1.value;
+    output2.textContent = input2.value;
+});
 
-input1.addEventListener('input', updateOutput.bind(null, input1, output1));
-input2.addEventListener('input', updateOutput.bind(null, input2, output2));
+input1.addEventListener('input', function() {
+    updateOutput(input1, output1);
+    saveData('input1Data', input1.value);
+});
+
+input2.addEventListener('input', function() {
+    updateOutput(input2, output2);
+    saveData('input2Data', input2.value);
+});
+
+input1.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        saveData('input1Data', input1.value);
+    }
+});
+
+input2.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        saveData('input2Data', input2.value);
+    }
+});
 
 function updateOutput(input, output) {
     output.textContent = input.value;
+}
+
+function saveData(key, value) {
+    localStorage.setItem(key, value);
 }
