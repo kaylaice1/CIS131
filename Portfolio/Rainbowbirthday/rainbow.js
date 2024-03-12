@@ -1,27 +1,21 @@
-let slideIndex = 1;
+let slideIndex = 0;
 
-function showSlides(n) {
+function showSlides() {
     let i;
     const slides = document.getElementsByClassName("mySlides");
-
-    if (n > slides.length) {
-        slideIndex = 1;
-    }
-
-    if (n < 1) {
-        slideIndex = slides.length;
-    }
 
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
 
+    slideIndex++;
+
+    if (slideIndex > slides.length) {
+        slideIndex = 1;
+    }
+
     slides[slideIndex - 1].style.display = "block";
+    setTimeout(showSlides, 5000);
 }
 
-function changeSlide(n) {
-    showSlides(slideIndex += n);
-}
-
-// Display the first slide when the page loads
-showSlides(slideIndex);
+showSlides();

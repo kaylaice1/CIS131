@@ -12,12 +12,12 @@ header {
 
 #birthday-heading {
     font-size: 2.5em;
-    background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+    background: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     margin: 0;
-    background-size: 150% 100%;
+    background-size: 85% 20%;
 }
 
 .slideshow-container {
