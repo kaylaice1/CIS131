@@ -30,21 +30,17 @@ header {
     display: none;
 }
 
-button {
-    font-size: 20px;
-    padding: 10px;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
 .prev,
 .next {
-    background-color: #333;
-    color: #fff;
-    border: none;
+    display: none; /* Hide the navigation buttons */
 }
 
-.prev:hover,
-.next:hover {
-    background-color: #555;
+/* Style for photo slides */
+.photoSlides {
+    display: none;
+}
+
+.photoSlides img {
+    width: 100%; /* Ensure all images fill their containers */
+    height: auto; /* Maintain aspect ratio */
 }
