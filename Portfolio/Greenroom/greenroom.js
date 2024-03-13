@@ -1,39 +1,61 @@
-// Retrieve data from localStorage on page load
 document.addEventListener('DOMContentLoaded', function() {
-    input1.value = localStorage.getItem('input1Data') || '';
-    input2.value = localStorage.getItem('input2Data') || '';
-    output1.textContent = input1.value;
-    output2.textContent = input2.value;
+    loadAndDisplayData('input1', 'output1');
+    loadAndDisplayData('input2', 'output2');
+    
+    document.getElementById('deleteAllBtn').addEventListener('click', function() {
+        deleteAllData('output1');
+        deleteAllData('output2');
+    });
+
+    document.getElementById('saveAllBtn').addEventListener('click', function() {
+        saveAllData();
+    });
 });
 
-input1.addEventListener('input', function() {
-    updateOutput(input1, output1);
-    saveData('input1Data', input1.value);
+function loadAndDisplayData(inputId, outputId) {
+    const input = document.getElementById(inputId);
+    const output = document.getElementById(outputId);
+    
+    input.value = localStorage.getItem(inputId) || '';
+    output.textContent = localStorage.getItem(outputId) || '';
+    output.classList.add('wrap-lines');
+
+    input.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const newData = input.value.trim();
+            if (newData !== '') {
+                const currentData = output.textContent;
+                output.textContent += (currentData === '' ? '' : "\n") + newData;
+                input.value = '';
+            }
+        }
+    });
+}
+
+document.querySelectorAll('.deleteBtn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const outputId = this.dataset.output;
+        const output = document.getElementById(outputId);
+        const input = output.previousElementSibling.querySelector('input');
+        const wordToDelete = input.value.trim();
+        const newData = output.textContent.split('\n').filter(word => word !== wordToDelete).join('\n');
+        output.textContent = newData;
+        input.value = '';
+    });
 });
 
-input2.addEventListener('input', function() {
-    updateOutput(input2, output2);
-    saveData('input2Data', input2.value);
-});
-
-input1.addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        saveData('input1Data', input1.value);
-    }
-});
-
-input2.addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        saveData('input2Data', input2.value);
-    }
-});
-
-function updateOutput(input, output) {
-    output.textContent = input.value;
+function deleteAllData(outputId) {
+    const output = document.getElementById(outputId);
+    output.textContent = '';
+    saveData(outputId, '');
 }
 
 function saveData(key, value) {
     localStorage.setItem(key, value);
+}
+
+function saveAllData() {
+    saveData('output1', document.getElementById('output1').textContent);
+    saveData('output2', document.getElementById('output2').textContent);
 }

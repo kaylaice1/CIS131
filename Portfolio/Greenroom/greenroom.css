@@ -15,14 +15,17 @@
 
 .container {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 20px;
 }
 
-.column {
+.column-container {
     flex: 1;
-    margin-right: 20px;
+    margin: 10px;
+}
+
+.box {
+    border: 2px solid lightgreen; /* Add border around the box */
+    padding: 10px;
+    margin-bottom: 20px; /* Add margin between boxes */
 }
 
 .column input {
@@ -31,4 +34,12 @@
 
 .output {
     margin-top: 10px;
+}
+
+.wrap-lines {
+    white-space: pre-wrap;
+}
+
+.column-title {
+    color: green; /* Set the color of column titles to green */
 }
