@@ -17,7 +17,7 @@ function loadAndDisplayData(inputId, outputId) {
     const output = document.getElementById(outputId);
     
     input.value = localStorage.getItem(inputId) || '';
-    output.textContent = localStorage.getItem(outputId) || '';
+    output.innerHTML = localStorage.getItem(outputId) || '';
     output.classList.add('wrap-lines');
 
     input.addEventListener('keypress', function(event) {
@@ -25,8 +25,12 @@ function loadAndDisplayData(inputId, outputId) {
             event.preventDefault();
             const newData = input.value.trim();
             if (newData !== '') {
-                const currentData = output.textContent;
-                output.textContent += (currentData === '' ? '' : "\n") + newData;
+                const currentData = output.innerHTML;
+                const newWord = document.createElement('span');
+                newWord.innerHTML = `<input type="checkbox">${newData}`;
+                output.appendChild(newWord);
+                output.appendChild(document.createElement('br'));
+                saveData(outputId, output.innerHTML);
                 input.value = '';
             }
         }
