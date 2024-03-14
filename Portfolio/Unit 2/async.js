@@ -4,30 +4,29 @@ let loser = '';
 
 const runner1Go = new Promise((resolve, reject) => {
     setTimeout(() => {
+        runner1 = true;
         if (!runner2) {
             loser = 'runner1';
         }
-        runner1 = true;
         resolve(true);
     }, Math.random() * 5000);
 });
 
 const runner2Go = new Promise((resolve, reject) => {
     setTimeout(() => {
+        runner2 = true;
         if (!runner1) {
             loser = 'runner2';
         }
-        runner2 = true;
         resolve(true);
     }, Math.random() * 5000);
 });
 
 async function race() {
-    const results = await Promise.all([runner1Go, runner2Go, loser]);
-    return results;
+    await Promise.all([runner1Go, runner2Go]);
+    return loser ? loser : (Math.random() < 0.5 ? 'runner1' : 'runner2');
 }
 
-race().then((result) => {
-    const [runner1Result, runner2Result, loser] = result;
+race().then((loser) => {
     console.log("Loser:", loser);
 });
