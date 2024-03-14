@@ -23,9 +23,9 @@
 }
 
 .box {
-    border: 2px solid lightgreen; /* Add border around the box */
+    border: 2px solid lightgreen;
     padding: 10px;
-    margin-bottom: 20px; /* Add margin between boxes */
+    margin-bottom: 20px;
 }
 
 .column input {
@@ -41,5 +41,5 @@
 }
 
 .column-title {
-    color: green; /* Set the color of column titles to green */
+    color: green;
 }
