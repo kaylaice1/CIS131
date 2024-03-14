@@ -4,18 +4,22 @@ let loser = '';
 
 const runner1Go = new Promise((resolve, reject) => {
     setTimeout(() => {
-        loser = 'runner1';
+        if (!runner2) {
+            loser = 'runner1';
+        }
         runner1 = true;
         resolve(true);
-    }, Math.random() * 5000); // Random timeout under 5 seconds
+    }, Math.random() * 5000);
 });
 
 const runner2Go = new Promise((resolve, reject) => {
     setTimeout(() => {
-        loser = 'runner2';
+        if (!runner1) {
+            loser = 'runner2';
+        }
         runner2 = true;
         resolve(true);
-    }, Math.random() * 5000); // Random timeout under 5 seconds
+    }, Math.random() * 5000);
 });
 
 async function race() {
