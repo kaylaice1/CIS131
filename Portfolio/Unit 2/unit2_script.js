@@ -23,7 +23,7 @@ class Shape {
     }
   };
   
-  // Add event listener for button click
+  // Event listener for button click
   document.getElementById('generateShapeBtn').addEventListener('click', function() {
     const shape = game.generateRandomShape();
     shape.draw();
