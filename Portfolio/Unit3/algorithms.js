@@ -113,7 +113,7 @@ document.getElementById("breadthBtn").addEventListener("click", function() {
     const number = parseInt(document.getElementById("highlightNumber").value);
     if (!isNaN(number)) {
         const breadth = []; // Clear breadth array before each search
-        breadthFirstSearchArray(head, breadth); // Call breadth-first search function
+        breadthFirstSearchArray(head, breadth, number); // Call breadth-first search function with the target number
         console.log('Breadth First Search:', breadth.join(', ')); // Log the result
         highlightNodes(breadth, number); // Start highlighting nodes one by one
     }
@@ -172,11 +172,11 @@ function depthFirstSearchArray(node, target, result) {
     }
 }
 
-// Function for breadth-first search
-function breadthFirstSearchArray(node, result) {
+// Function for breadth-first search with a target number
+function breadthFirstSearchArray(node, result, targetNumber) {
     const queue = [];
     queue.push(node);
-    while (queue.length > 0) {
+    while (queue.length > 0 && result.length < targetNumber) { // Continue until target number of nodes are found
         const current = queue.shift();
         result.push(current.value);
         if (current.left) queue.push(current.left);
