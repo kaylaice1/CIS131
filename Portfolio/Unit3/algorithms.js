@@ -21,8 +21,8 @@ const leaf7 = new Leaf(7, 600, 250);
 const leaf8 = new Leaf(8, 150, 350);
 const leaf9 = new Leaf(9, 250, 350);
 const leaf10 = new Leaf(10, 400, 350);
-const leaf11 = new Leaf(11, 550, 350); // New leaf
-const leaf12 = new Leaf(12, 700, 350); // New leaf
+const leaf11 = new Leaf(11, 550, 350); 
+const leaf12 = new Leaf(12, 700, 350); 
 
 // Construct the tree
 head.left = leaf2;
@@ -34,8 +34,8 @@ leaf3.right = leaf7;
 leaf4.left = leaf8;
 leaf4.right = leaf9;
 leaf5.left = leaf10;
-leaf6.left = leaf11; // Connect leaf6 to new leaf11
-leaf7.right = leaf12; // Connect leaf7 to new leaf12
+leaf6.left = leaf11; 
+leaf7.right = leaf12; 
 
 // Get canvas element and context
 const canvas = document.getElementById('treeCanvas');
