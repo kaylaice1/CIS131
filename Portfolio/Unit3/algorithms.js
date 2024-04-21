@@ -143,20 +143,25 @@ function unhighlightAllLeaves() {
     drawTree(head);
 }
 
-document.getElementById("depthBtn").addEventListener("click", function() {
-    const number = parseInt(document.getElementById("highlightNumber").value);
-    if (!isNaN(number)) {
-        const depthArray = [];
-        depthFirstSearchArray(head, number, [], { value: false }); // Perform depth-first search with the target number
+// Function for depth-first search
+function depthFirstSearchArray(node, target, result, found) {
+    if (!node) return;
+    if (node.value === target) {
+        found.value = true;
+        result.push(node.value);
     }
-});
+    depthFirstSearchArray(node.left, target, result, found);
+    depthFirstSearchArray(node.right, target, result, found);
+}
 
-document.getElementById("breadthBtn").addEventListener("click", function() {
-    const number = parseInt(document.getElementById("highlightNumber").value);
-    if (!isNaN(number)) {
-        breadth = []; // Clear breadth array before each search
-        breadthFirstSearchArray(head, breadth); // Call breadth-first search function
-        const nodesToHighlight = breadth.slice(0, number); // Get nodes to highlight up to the specified number
-        highlightNodes(nodesToHighlight, number); // Start highlighting nodes one by one
+// Function for breadth-first search
+function breadthFirstSearchArray(node, result) {
+    const queue = [];
+    queue.push(node);
+    while (queue.length > 0) {
+        const current = queue.shift();
+        result.push(current.value);
+        if (current.left) queue.push(current.left);
+        if (current.right) queue.push(current.right);
     }
-});
+}

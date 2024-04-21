@@ -3,14 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Algorithms</title>
-    <style>
-        canvas {
-            border: 1px solid black;
-            display: block;
-            margin: 0 auto;
-        }
-    </style>
+    <title>Navigation Menu</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <nav>
@@ -18,16 +12,22 @@
             <li>
                 <a href="ArrayMethods.html">Array</a>
             </li>
+            <li>
+                <a href="TreeVisualization.html">Tree</a>
+            </li>
         </ul>
     </nav>
-    <h1>Tree Algorithms</h1>
-    <canvas id="treeCanvas" width="800" height="400"></canvas>
-    <input type="number" id="highlightNumber" placeholder="Enter a number">
-    <button id="depthBtn">Depth First Search</button>
-    <button id="breadthBtn">Breadth First Search</button>
-    <p id="depthOutput"></p>
-    <p id="breadthOutput"></p>
+    <div>
+        <canvas id="treeCanvas" width="800" height="400"></canvas>
+        <div>
+            <input type="text" id="highlightNumber" placeholder="Enter number to highlight">
+            <button id="depthBtn">Depth First Search</button>
+            <button id="breadthBtn">Breadth First Search</button>
+        </div>
+        <div id="depthOutput"></div>
+        <div id="breadthOutput"></div>
+    </div>
 
-    <script src="algorithms.js"></script>
+    <script src="algorithms.js" defer></script>
 </body>
 </html>
