@@ -83,12 +83,11 @@ function drawTree(node) {
 
 // Draw the initial tree
 drawTree(head);
-
-document.getElementById("depthBtn").addEventListener("click", function() {
+  document.getElementById("depthBtn").addEventListener("click", function() {
     const number = parseInt(document.getElementById("highlightNumber").value);
     if (!isNaN(number)) {
         const depthArray = [];
-        depthFirstSearchWithHighlight(head, number, depthArray, { value: false }); // Perform depth-first search with the target number
+        depthFirstSearchArray(head, number, depthArray); // Perform depth-first search with the target number
         console.log('Depth First Search:', depthArray.join(', ')); // Log the result
     }
 });
@@ -144,14 +143,22 @@ function unhighlightAllLeaves() {
 }
 
 // Function for depth-first search
-function depthFirstSearchArray(node, target, result, found) {
+function depthFirstSearchArray(node, target, result) {
     if (!node) return;
+    
+    result.push(node.value); // Push the current node's value to the result array
+
     if (node.value === target) {
-        found.value = true;
-        result.push(node.value);
+        highlightNodeWithValue(node); // Highlight the current node if it matches the target
+        return;
     }
-    depthFirstSearchArray(node.left, target, result, found);
-    depthFirstSearchArray(node.right, target, result, found);
+
+    if (node.left) {
+        depthFirstSearchArray(node.left, target, result); // Recursively search the left subtree
+    }
+    if (node.right) {
+        depthFirstSearchArray(node.right, target, result); // Recursively search the right subtree
+    }
 }
 
 // Function for breadth-first search
