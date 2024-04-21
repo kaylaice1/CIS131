@@ -85,11 +85,12 @@ function drawTree(node) {
 drawTree(head);
 
 document.getElementById("depthBtn").addEventListener("click", function() {
-    const number = parseInt(document.getElementById("highlightNumber").value);
-    if (!isNaN(number)) {
+    const targetValue = parseInt(document.getElementById("highlightNumber").value);
+    if (!isNaN(targetValue)) {
         const depthArray = [];
-        depthFirstSearchArray(head, number, depthArray); // Perform depth-first search with the target number
+        depthFirstSearchArray(head, targetValue, depthArray); // Perform depth-first search with the target value
         console.log('Depth First Search:', depthArray.join(', ')); // Log the result
+        highlightNextNode(depthArray, 0, targetValue); // Highlight nodes up to the specified value
     }
 });
 
@@ -105,20 +106,24 @@ document.getElementById("breadthBtn").addEventListener("click", function() {
 });
 
 // Function to highlight the next node based on the search result
-function highlightNextNode(nodes, currentIndex) {
+function highlightNextNode(nodes, currentIndex, targetValue) {
     if (currentIndex >= nodes.length) return; // Stop if all nodes have been highlighted
-    const nodeValue = nodes[currentIndex];
+
+    const currentNodeValue = nodes[currentIndex];
     unhighlightAllLeaves(); // Unhighlight all nodes
-    highlightNodeWithValue(head, nodeValue); // Highlight the current node
+    highlightNodeWithValue(head, currentNodeValue); // Highlight the current node
+
+    if (currentNodeValue === targetValue) return; // Stop if the current node's value matches the target value
+
     setTimeout(() => {
-        highlightNextNode(nodes, currentIndex + 1); // Highlight the next node after a delay
+        highlightNextNode(nodes, currentIndex + 1, targetValue); // Highlight the next node after a delay
     }, 1000); // Adjust delay as needed (in milliseconds)
 }
 
 // Function to highlight nodes based on the search result
 function highlightNodes(nodes, targetNumber) {
     const nodesToHighlight = nodes.slice(0, targetNumber); // Get nodes to highlight up to the specified number
-    highlightNextNode(nodesToHighlight, 0); // Start highlighting nodes one by one
+    highlightNextNode(nodesToHighlight, 0, targetNumber); // Start highlighting nodes one by one
 }
 
 // Function to highlight a node with a specific value
@@ -146,11 +151,10 @@ function unhighlightAllLeaves() {
 // Function for depth-first search
 function depthFirstSearchArray(node, target, result) {
     if (!node) return;
-    
+
     result.push(node.value); // Push the current node's value to the result array
 
     if (node.value === target) {
-        highlightNodeWithValue(node); // Highlight the current node if it matches the target
         return;
     }
 
@@ -176,26 +180,25 @@ function breadthFirstSearchArray(node, result) {
 
 // Function for depth-first search with highlighting
 function depthFirstSearchWithHighlight(node, target, result, found) {
-    if (!node) return;
+    if (!node || found.value) return; // Stop if node is null or target is found
+
+    highlightNodeWithValue(node); // Highlight the current node
+    setTimeout(() => {
+        unhighlightNodeWithValue(node); // Unhighlight the current node after a delay
+    }, 1000); // Adjust delay as needed (in milliseconds)
+
+    // If the current node's value matches the target, stop the search
     if (node.value === target) {
         found.value = true;
         result.push(node.value);
         return;
     }
+
+    // Proceed with traversal only if the target is not found yet
     if (!found.value) {
-        highlightNodeWithValue(node); // Highlight the current node
-        setTimeout(() => {
-            unhighlightNodeWithValue(node); // Unhighlight the current node after a delay
-        }, 1000); // Adjust delay as needed (in milliseconds)
+        depthFirstSearchWithHighlight(node.left, target, result, found);
+        depthFirstSearchWithHighlight(node.right, target, result, found);
     }
-    depthFirstSearchWithHighlight(node.left, target, result, found);
-    if (!found.value) {
-        highlightNodeWithValue(node); // Highlight the current node
-        setTimeout(() => {
-            unhighlightNodeWithValue(node); // Unhighlight the current node after a delay
-        }, 1000); // Adjust delay as needed (in milliseconds)
-    }
-    depthFirstSearchWithHighlight(node.right, target, result, found);
 }
 
 // Function to unhighlight a node with a specific value
@@ -203,4 +206,12 @@ function unhighlightNodeWithValue(node) {
     if (!node) return;
     ctx.clearRect(node.x - node.radius - 1, node.y - node.radius - 1, 2 * node.radius + 2, 2 * node.radius + 2);
     drawLeaf(node);
+}
+
+// Function to highlight nodes up to the specified number
+function highlightNodes(nodes, targetNumber) {
+    nodes = nodes.slice(0, targetNumber); // Get nodes up to the specified number
+    nodes.forEach(nodeValue => {
+        highlightNodeWithValue(head, nodeValue); // Highlight each node
+    });
 }
