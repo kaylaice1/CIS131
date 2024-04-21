@@ -84,32 +84,25 @@ function drawTree(node) {
 // Draw the initial tree
 drawTree(head);
 
-// Function for depth-first search on the tree
-function depthFirstSearchArray(node, targetNumber, path = [], found = { value: false }) {
-    if (!node || found.value) return; // Terminate if node is null or target number found
-    path.push(node); // Push the current node into the path
-    if (node.value === targetNumber) {
-        found.value = true; // Set found flag to true if target number is found
-        highlightNodes(path.map(node => node.value), targetNumber); // Highlight nodes along the path
-        return;
+document.getElementById("depthBtn").addEventListener("click", function() {
+    const number = parseInt(document.getElementById("highlightNumber").value);
+    if (!isNaN(number)) {
+        const depthArray = [];
+        depthFirstSearchArray(head, number, [], { value: false }); // Perform depth-first search with the target number
+        document.getElementById("depthOutput").textContent = 'Depth First Search: ' + depthArray.join(', ');
     }
-    depthFirstSearchArray(node.left, targetNumber, path.slice(), found); // Recursively visit left subtree
-    if (!found.value) { // If target number not found yet, explore right subtree
-        depthFirstSearchArray(node.right, targetNumber, path.slice(), found);
-    }
-}
+});
 
-// Function for breadth-first search on the tree
-function breadthFirstSearchArray(node, breadthArray) {
-    if (!node) return;
-    const queue = [node];
-    while (queue.length > 0) {
-        const current = queue.shift();
-        breadthArray.push(current.value); // Push the current node value into the breadth array
-        if (current.left) queue.push(current.left);
-        if (current.right) queue.push(current.right);
+document.getElementById("breadthBtn").addEventListener("click", function() {
+    const number = parseInt(document.getElementById("highlightNumber").value);
+    if (!isNaN(number)) {
+        breadth = []; // Clear breadth array before each search
+        breadthFirstSearchArray(head, breadth); // Call breadth-first search function
+        const nodesToHighlight = breadth.slice(0, number); // Get nodes to highlight up to the specified number
+        highlightNodes(nodesToHighlight, number); // Start highlighting nodes one by one
+        document.getElementById("breadthOutput").textContent = 'Breadth First Search: ' + breadth.join(', ');
     }
-}
+});
 
 // Function to highlight the next node based on the search result
 function highlightNextNode(nodes, currentIndex) {
