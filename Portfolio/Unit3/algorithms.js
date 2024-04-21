@@ -1,65 +1,169 @@
+// Define the Leaf class
 class Leaf {
-    constructor(value) {
-      this.value = value;
-      this.left = null;
-      this.right = null;
+    constructor(value, x, y) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
+        this.x = x;
+        this.y = y;
+        this.radius = 20; // Radius of the circle
     }
-  }
-  
-  // Create leaves for the tree
-  const head = new Leaf(5);
-  const leaf2 = new Leaf(3);
-  const leaf3 = new Leaf(8);
-  const leaf4 = new Leaf(1);
-  const leaf5 = new Leaf(4);
-  const leaf6 = new Leaf(7);
-  const leaf7 = new Leaf(9);
-  const leaf8 = new Leaf(2);
-  const leaf9 = new Leaf(6);
-  const leaf10 = new Leaf(10);
-  
-  // Connect leaves to form a binary tree
-  head.left = leaf2;
-  head.right = leaf3;
-  leaf2.left = leaf4;
-  leaf2.right = leaf5;
-  leaf3.left = leaf6;
-  leaf3.right = leaf7;
-  leaf4.left = leaf8;
-  leaf6.left = leaf9;
-  leaf7.right = leaf10;
-  
-  // Depth First Search function
-  function depthFirstSearch(node, depthArray) {
-    if (node !== null) {
-      depthFirstSearch(node.left, depthArray);
-      depthArray.push(node.value);
-      depthFirstSearch(node.right, depthArray);
+}
+
+// Create leaves for the tree
+const head = new Leaf(1, 400, 50);
+const leaf2 = new Leaf(2, 300, 150);
+const leaf3 = new Leaf(3, 500, 150);
+const leaf4 = new Leaf(4, 200, 250);
+const leaf5 = new Leaf(5, 350, 250);
+const leaf6 = new Leaf(6, 450, 250);
+const leaf7 = new Leaf(7, 600, 250);
+const leaf8 = new Leaf(8, 150, 350);
+const leaf9 = new Leaf(9, 250, 350);
+const leaf10 = new Leaf(10, 400, 350);
+const leaf11 = new Leaf(11, 550, 350); // New leaf
+const leaf12 = new Leaf(12, 700, 350); // New leaf
+
+// Construct the tree
+head.left = leaf2;
+head.right = leaf3;
+leaf2.left = leaf4;
+leaf2.right = leaf5;
+leaf3.left = leaf6;
+leaf3.right = leaf7;
+leaf4.left = leaf8;
+leaf4.right = leaf9;
+leaf5.left = leaf10;
+leaf6.left = leaf11; // Connect leaf6 to new leaf11
+leaf7.right = leaf12; // Connect leaf7 to new leaf12
+
+// Get canvas element and context
+const canvas = document.getElementById('treeCanvas');
+const ctx = canvas.getContext('2d');
+
+// Function to draw a leaf node
+function drawLeaf(leaf) {
+    ctx.beginPath();
+    ctx.arc(leaf.x, leaf.y, leaf.radius, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillText(leaf.value, leaf.x - 5, leaf.y + 5);
+}
+
+// Function to draw a line between two points
+function drawLine(x1, y1, x2, y2) {
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+}
+
+// Function to draw the tree
+function drawTree(node) {
+    if (!node) return;
+    drawLeaf(node);
+    if (node.left) {
+        const angle = Math.atan2(node.left.y - node.y, node.left.x - node.x);
+        const x1 = node.x + node.radius * Math.cos(angle);
+        const y1 = node.y + node.radius * Math.sin(angle);
+        const x2 = node.left.x - node.left.radius * Math.cos(angle);
+        const y2 = node.left.y - node.left.radius * Math.sin(angle);
+        drawLine(x1, y1, x2, y2);
+        drawTree(node.left);
     }
-  }
-  
-  // Breadth First Search function
-  function breadthFirstSearch(node, breadthArray) {
+    if (node.right) {
+        const angle = Math.atan2(node.right.y - node.y, node.right.x - node.x);
+        const x1 = node.x + node.radius * Math.cos(angle);
+        const y1 = node.y + node.radius * Math.sin(angle);
+        const x2 = node.right.x - node.right.radius * Math.cos(angle);
+        const y2 = node.right.y - node.right.radius * Math.sin(angle);
+        drawLine(x1, y1, x2, y2);
+        drawTree(node.right);
+    }
+}
+
+// Draw the initial tree
+drawTree(head);
+
+// Function for depth-first search on the tree
+function depthFirstSearchArray(node, targetNumber, path = [], found = { value: false }) {
+    if (!node || found.value) return; // Terminate if node is null or target number found
+    path.push(node); // Push the current node into the path
+    if (node.value === targetNumber) {
+        found.value = true; // Set found flag to true if target number is found
+        highlightNodes(path.map(node => node.value), targetNumber); // Highlight nodes along the path
+        return;
+    }
+    depthFirstSearchArray(node.left, targetNumber, path.slice(), found); // Recursively visit left subtree
+    if (!found.value) { // If target number not found yet, explore right subtree
+        depthFirstSearchArray(node.right, targetNumber, path.slice(), found);
+    }
+}
+
+// Function for breadth-first search on the tree
+function breadthFirstSearchArray(node, breadthArray) {
+    if (!node) return;
     const queue = [node];
     while (queue.length > 0) {
-      const current = queue.shift();
-      breadthArray.push(current.value);
-      if (current.left !== null) queue.push(current.left);
-      if (current.right !== null) queue.push(current.right);
+        const current = queue.shift();
+        breadthArray.push(current.value); // Push the current node value into the breadth array
+        if (current.left) queue.push(current.left);
+        if (current.right) queue.push(current.right);
     }
-  }
-  
-  // Arrays to store depth and breadth search results
-  const depthArray = [];
-  const breadthArray = [];
-  
-  // Perform Depth First Search
-  depthFirstSearch(head, depthArray);
-  
-  // Perform Breadth First Search
-  breadthFirstSearch(head, breadthArray);
-  
-  // Display results on the HTML page
-  document.getElementById('depthArray').textContent = 'Depth First Search: ' + depthArray.join(', ');
-  document.getElementById('breadthArray').textContent = 'Breadth First Search: ' + breadthArray.join(', ');
-  
+}
+
+// Function to highlight the next node based on the search result
+function highlightNextNode(nodes, currentIndex) {
+    if (currentIndex >= nodes.length) return; // Stop if all nodes have been highlighted
+    const nodeValue = nodes[currentIndex];
+    unhighlightAllLeaves(); // Unhighlight all nodes
+    highlightNodeWithValue(head, nodeValue); // Highlight the current node
+    setTimeout(() => {
+        highlightNextNode(nodes, currentIndex + 1); // Highlight the next node after a delay
+    }, 1000); // Adjust delay as needed (in milliseconds)
+}
+
+// Function to highlight nodes based on the search result
+function highlightNodes(nodes, targetNumber) {
+    const nodesToHighlight = nodes.slice(0, targetNumber); // Get nodes to highlight up to the specified number
+    highlightNextNode(nodesToHighlight, 0); // Start highlighting nodes one by one
+}
+
+// Function to highlight a node with a specific value
+function highlightNodeWithValue(node, value) {
+    if (!node) return;
+    if (node.value === value) {
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "yellow"; // Highlight color
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = "black";
+        ctx.fillText(node.value, node.x - 5, node.y + 5);
+    }
+    highlightNodeWithValue(node.left, value);
+    highlightNodeWithValue(node.right, value);
+}
+
+// Function to unhighlight all leaves
+function unhighlightAllLeaves() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawTree(head);
+}
+
+document.getElementById("depthBtn").addEventListener("click", function() {
+    const number = parseInt(document.getElementById("highlightNumber").value);
+    if (!isNaN(number)) {
+        const depthArray = [];
+        depthFirstSearchArray(head, number, [], { value: false }); // Perform depth-first search with the target number
+    }
+});
+
+document.getElementById("breadthBtn").addEventListener("click", function() {
+    const number = parseInt(document.getElementById("highlightNumber").value);
+    if (!isNaN(number)) {
+        breadth = []; // Clear breadth array before each search
+        breadthFirstSearchArray(head, breadth); // Call breadth-first search function
+        const nodesToHighlight = breadth.slice(0, number); // Get nodes to highlight up to the specified number
+        highlightNodes(nodesToHighlight, number); // Start highlighting nodes one by one
+    }
+});
