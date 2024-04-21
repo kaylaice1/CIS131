@@ -113,17 +113,17 @@ document.getElementById("breadthBtn").addEventListener("click", function() {
     const number = parseInt(document.getElementById("highlightNumber").value);
     if (!isNaN(number)) {
         const breadth = []; // Clear breadth array before each search
-        breadthFirstSearchArray(head, breadth, number); // Call breadth-first search function with the target number
+        breadthFirstSearchArray(head, breadth); // Call breadth-first search function
         console.log('Breadth First Search:', breadth.join(', ')); // Log the result
-        highlightNodes(breadth, number); // Start highlighting nodes one by one
+        highlightNodes(breadth, 1, number); // Start highlighting nodes one by one
     }
 });
 
 // Function to highlight nodes one by one
 function highlightNodes(nodes, currentIndex, targetNumber) {
-    if (currentIndex >= targetNumber) return; // Stop if all nodes have been highlighted
+    if (currentIndex > targetNumber) return; // Stop if target number of nodes have been highlighted
 
-    const currentNodeValue = nodes[currentIndex];
+    const currentNodeValue = nodes[currentIndex - 1];
     unhighlightAllLeaves(); // Unhighlight all nodes
     highlightNodeWithValue(head, currentNodeValue); // Highlight the current node
 
@@ -172,11 +172,11 @@ function depthFirstSearchArray(node, target, result) {
     }
 }
 
-// Function for breadth-first search with a target number
-function breadthFirstSearchArray(node, result, targetNumber) {
+// Function for breadth-first search
+function breadthFirstSearchArray(node, result) {
     const queue = [];
     queue.push(node);
-    while (queue.length > 0 && result.length < targetNumber) { // Continue until target number of nodes are found
+    while (queue.length > 0) {
         const current = queue.shift();
         result.push(current.value);
         if (current.left) queue.push(current.left);
