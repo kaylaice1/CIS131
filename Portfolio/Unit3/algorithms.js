@@ -21,8 +21,8 @@ const leaf7 = new Leaf(7, 600, 250);
 const leaf8 = new Leaf(8, 150, 350);
 const leaf9 = new Leaf(9, 250, 350);
 const leaf10 = new Leaf(10, 400, 350);
-const leaf11 = new Leaf(11, 550, 350); 
-const leaf12 = new Leaf(12, 700, 350); 
+const leaf11 = new Leaf(11, 550, 350);
+const leaf12 = new Leaf(12, 700, 350);
 
 // Construct the tree
 head.left = leaf2;
@@ -100,26 +100,24 @@ document.getElementById("breadthBtn").addEventListener("click", function() {
         const breadth = []; // Clear breadth array before each search
         breadthFirstSearchArray(head, breadth); // Call breadth-first search function
         const nodesToHighlight = breadth.slice(0, number); // Get nodes to highlight up to the specified number
-        highlightNextNode(nodesToHighlight, 0); // Start highlighting nodes one by one
+        highlightNodes(nodesToHighlight, number); // Start highlighting nodes one by one
         console.log('Breadth First Search:', breadth.join(', ')); // Log the result
     }
 });
 
-// Function to highlight nodes based on the search result with a delay
-function highlightNodesWithDelay(nodes, currentIndex, targetValue) {
+// Function to highlight the next node based on the search result
+function highlightNextNode(nodes, currentIndex, targetValue) {
     if (currentIndex >= nodes.length) return; // Stop if all nodes have been highlighted
 
     const currentNodeValue = nodes[currentIndex];
-    const currentNode = getNodeWithValue(head, currentNodeValue);
+    unhighlightAllLeaves(); // Unhighlight all nodes
+    highlightNodeWithValue(head, currentNodeValue); // Highlight the current node
 
-    highlightNodeWithValue(currentNode, currentNodeValue); // Highlight the current node
+    if (currentNodeValue === targetValue) return; // Stop if the current node's value matches the target value
 
-    if (currentNodeValue !== targetValue) {
-        setTimeout(() => {
-            unhighlightNodeWithValue(currentNode); // Unhighlight the current node after a delay
-            highlightNodesWithDelay(nodes, currentIndex + 1, targetValue); // Highlight the next node after a delay
-        }, 1000); // Adjust delay as needed (in milliseconds)
-    }
+    setTimeout(() => {
+        highlightNextNode(nodes, currentIndex + 1, targetValue); // Highlight the next node after a delay
+    }, 1000); // Adjust delay as needed (in milliseconds)
 }
 
 // Function to highlight nodes based on the search result
@@ -144,6 +142,7 @@ function highlightNodeWithValue(node, value) {
     highlightNodeWithValue(node.right, value);
 }
 
+// Function to unhighlight all leaves
 function unhighlightAllLeaves() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawTree(head);
@@ -202,6 +201,7 @@ function depthFirstSearchWithHighlight(node, target, result, found) {
     }
 }
 
+
 // Function to unhighlight a node with a specific value
 function unhighlightNodeWithValue(node) {
     if (!node) return;
@@ -215,19 +215,4 @@ function highlightNodes(nodes, targetNumber) {
     nodes.forEach(nodeValue => {
         highlightNodeWithValue(head, nodeValue); // Highlight each node
     });
-}
-
-// Function to highlight the next node in the nodes array
-function highlightNextNode(nodes, currentIndex) {
-    if (currentIndex >= nodes.length) return; // Stop if all nodes have been highlighted
-
-    const currentNodeValue = nodes[currentIndex];
-    const currentNode = getNodeWithValue(head, currentNodeValue);
-
-    highlightNodeWithValue(currentNode, currentNodeValue); // Highlight the current node
-
-    setTimeout(() => {
-        unhighlightNodeWithValue(currentNode); // Unhighlight the current node after a delay
-        highlightNextNode(nodes, currentIndex + 1); // Highlight the next node after a delay
-    }, 1000); // Adjust delay as needed (in milliseconds)
 }
