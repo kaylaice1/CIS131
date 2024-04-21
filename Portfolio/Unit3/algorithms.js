@@ -83,7 +83,8 @@ function drawTree(node) {
 
 // Draw the initial tree
 drawTree(head);
-  document.getElementById("depthBtn").addEventListener("click", function() {
+
+document.getElementById("depthBtn").addEventListener("click", function() {
     const number = parseInt(document.getElementById("highlightNumber").value);
     if (!isNaN(number)) {
         const depthArray = [];
