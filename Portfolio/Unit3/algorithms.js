@@ -100,24 +100,26 @@ document.getElementById("breadthBtn").addEventListener("click", function() {
         const breadth = []; // Clear breadth array before each search
         breadthFirstSearchArray(head, breadth); // Call breadth-first search function
         const nodesToHighlight = breadth.slice(0, number); // Get nodes to highlight up to the specified number
-        highlightNodes(nodesToHighlight, number); // Start highlighting nodes one by one
+        highlightNextNode(nodesToHighlight, 0); // Start highlighting nodes one by one
         console.log('Breadth First Search:', breadth.join(', ')); // Log the result
     }
 });
 
-// Function to highlight the next node based on the search result
-function highlightNextNode(nodes, currentIndex, targetValue) {
+// Function to highlight nodes based on the search result with a delay
+function highlightNodesWithDelay(nodes, currentIndex, targetValue) {
     if (currentIndex >= nodes.length) return; // Stop if all nodes have been highlighted
 
     const currentNodeValue = nodes[currentIndex];
-    unhighlightAllLeaves(); // Unhighlight all nodes
-    highlightNodeWithValue(head, currentNodeValue); // Highlight the current node
+    const currentNode = getNodeWithValue(head, currentNodeValue);
 
-    if (currentNodeValue === targetValue) return; // Stop if the current node's value matches the target value
+    highlightNodeWithValue(currentNode, currentNodeValue); // Highlight the current node
 
-    setTimeout(() => {
-        highlightNextNode(nodes, currentIndex + 1, targetValue); // Highlight the next node after a delay
-    }, 1000); // Adjust delay as needed (in milliseconds)
+    if (currentNodeValue !== targetValue) {
+        setTimeout(() => {
+            unhighlightNodeWithValue(currentNode); // Unhighlight the current node after a delay
+            highlightNodesWithDelay(nodes, currentIndex + 1, targetValue); // Highlight the next node after a delay
+        }, 1000); // Adjust delay as needed (in milliseconds)
+    }
 }
 
 // Function to highlight nodes based on the search result
@@ -214,4 +216,19 @@ function highlightNodes(nodes, targetNumber) {
     nodes.forEach(nodeValue => {
         highlightNodeWithValue(head, nodeValue); // Highlight each node
     });
+}
+
+// Function to highlight the next node in the nodes array
+function highlightNextNode(nodes, currentIndex) {
+    if (currentIndex >= nodes.length) return; // Stop if all nodes have been highlighted
+
+    const currentNodeValue = nodes[currentIndex];
+    const currentNode = getNodeWithValue(head, currentNodeValue);
+
+    highlightNodeWithValue(currentNode, currentNodeValue); // Highlight the current node
+
+    setTimeout(() => {
+        unhighlightNodeWithValue(currentNode); // Unhighlight the current node after a delay
+        highlightNextNode(nodes, currentIndex + 1); // Highlight the next node after a delay
+    }, 1000); // Adjust delay as needed (in milliseconds)
 }
