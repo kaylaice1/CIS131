@@ -94,17 +94,6 @@ document.getElementById("depthBtn").addEventListener("click", function() {
     }
 });
 
-document.getElementById("breadthBtn").addEventListener("click", function() {
-    const number = parseInt(document.getElementById("highlightNumber").value);
-    if (!isNaN(number)) {
-        const breadth = []; // Clear breadth array before each search
-        breadthFirstSearchArray(head, breadth); // Call breadth-first search function
-        const nodesToHighlight = breadth.slice(0, number); // Get nodes to highlight up to the specified number
-        highlightNodes(nodesToHighlight, number); // Start highlighting nodes one by one
-        console.log('Breadth First Search:', breadth.join(', ')); // Log the result
-    }
-});
-
 // Function to highlight the next node based on the search result
 function highlightNextNode(nodes, currentIndex, targetValue) {
     if (currentIndex >= nodes.length) return; // Stop if all nodes have been highlighted
@@ -120,10 +109,27 @@ function highlightNextNode(nodes, currentIndex, targetValue) {
     }, 1000); // Adjust delay as needed (in milliseconds)
 }
 
-// Function to highlight nodes based on the search result
-function highlightNodes(nodes, targetNumber) {
-    const nodesToHighlight = nodes.slice(0, targetNumber); // Get nodes to highlight up to the specified number
-    highlightNextNode(nodesToHighlight, 0, targetNumber); // Start highlighting nodes one by one
+document.getElementById("breadthBtn").addEventListener("click", function() {
+    const number = parseInt(document.getElementById("highlightNumber").value);
+    if (!isNaN(number)) {
+        const breadth = []; // Clear breadth array before each search
+        breadthFirstSearchArray(head, breadth); // Call breadth-first search function
+        console.log('Breadth First Search:', breadth.join(', ')); // Log the result
+        highlightNodes(breadth, number); // Start highlighting nodes one by one
+    }
+});
+
+// Function to highlight nodes one by one
+function highlightNodes(nodes, currentIndex, targetNumber) {
+    if (currentIndex >= targetNumber) return; // Stop if all nodes have been highlighted
+
+    const currentNodeValue = nodes[currentIndex];
+    unhighlightAllLeaves(); // Unhighlight all nodes
+    highlightNodeWithValue(head, currentNodeValue); // Highlight the current node
+
+    setTimeout(() => {
+        highlightNodes(nodes, currentIndex + 1, targetNumber); // Highlight the next node after a delay
+    }, 1000); // Adjust delay as needed (in milliseconds)
 }
 
 // Function to highlight a node with a specific value
@@ -176,42 +182,4 @@ function breadthFirstSearchArray(node, result) {
         if (current.left) queue.push(current.left);
         if (current.right) queue.push(current.right);
     }
-}
-
-// Function for depth-first search with highlighting
-function depthFirstSearchWithHighlight(node, target, result, found) {
-    if (!node || found.value) return; // Stop if node is null or target is found
-
-    highlightNodeWithValue(node); // Highlight the current node
-    setTimeout(() => {
-        unhighlightNodeWithValue(node); // Unhighlight the current node after a delay
-    }, 1000); // Adjust delay as needed (in milliseconds)
-
-    // If the current node's value matches the target, stop the search
-    if (node.value === target) {
-        found.value = true;
-        result.push(node.value);
-        return;
-    }
-
-    // Proceed with traversal only if the target is not found yet
-    if (!found.value) {
-        depthFirstSearchWithHighlight(node.left, target, result, found);
-        depthFirstSearchWithHighlight(node.right, target, result, found);
-    }
-}
-
-// Function to unhighlight a node with a specific value
-function unhighlightNodeWithValue(node) {
-    if (!node) return;
-    ctx.clearRect(node.x - node.radius - 1, node.y - node.radius - 1, 2 * node.radius + 2, 2 * node.radius + 2);
-    drawLeaf(node);
-}
-
-// Function to highlight nodes up to the specified number
-function highlightNodes(nodes, targetNumber) {
-    nodes = nodes.slice(0, targetNumber); // Get nodes up to the specified number
-    nodes.forEach(nodeValue => {
-        highlightNodeWithValue(head, nodeValue); // Highlight each node
-    });
 }
