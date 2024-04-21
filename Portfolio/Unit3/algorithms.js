@@ -88,7 +88,7 @@ document.getElementById("depthBtn").addEventListener("click", function() {
     const number = parseInt(document.getElementById("highlightNumber").value);
     if (!isNaN(number)) {
         const depthArray = [];
-        depthFirstSearchArray(head, number, depthArray, { value: false }); // Perform depth-first search with the target number
+        depthFirstSearchWithHighlight(head, number, depthArray, { value: false }); // Perform depth-first search with the target number
         console.log('Depth First Search:', depthArray.join(', ')); // Log the result
     }
 });
@@ -164,4 +164,35 @@ function breadthFirstSearchArray(node, result) {
         if (current.left) queue.push(current.left);
         if (current.right) queue.push(current.right);
     }
+}
+
+// Function for depth-first search with highlighting
+function depthFirstSearchWithHighlight(node, target, result, found) {
+    if (!node) return;
+    if (node.value === target) {
+        found.value = true;
+        result.push(node.value);
+        return;
+    }
+    if (!found.value) {
+        highlightNodeWithValue(node); // Highlight the current node
+        setTimeout(() => {
+            unhighlightNodeWithValue(node); // Unhighlight the current node after a delay
+        }, 1000); // Adjust delay as needed (in milliseconds)
+    }
+    depthFirstSearchWithHighlight(node.left, target, result, found);
+    if (!found.value) {
+        highlightNodeWithValue(node); // Highlight the current node
+        setTimeout(() => {
+            unhighlightNodeWithValue(node); // Unhighlight the current node after a delay
+        }, 1000); // Adjust delay as needed (in milliseconds)
+    }
+    depthFirstSearchWithHighlight(node.right, target, result, found);
+}
+
+// Function to unhighlight a node with a specific value
+function unhighlightNodeWithValue(node) {
+    if (!node) return;
+    ctx.clearRect(node.x - node.radius - 1, node.y - node.radius - 1, 2 * node.radius + 2, 2 * node.radius + 2);
+    drawLeaf(node);
 }
