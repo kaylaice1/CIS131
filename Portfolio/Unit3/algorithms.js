@@ -88,19 +88,19 @@ document.getElementById("depthBtn").addEventListener("click", function() {
     const number = parseInt(document.getElementById("highlightNumber").value);
     if (!isNaN(number)) {
         const depthArray = [];
-        depthFirstSearchArray(head, number, [], { value: false }); // Perform depth-first search with the target number
-        document.getElementById("depthOutput").textContent = 'Depth First Search: ' + depthArray.join(', ');
+        depthFirstSearchArray(head, number, depthArray, { value: false }); // Perform depth-first search with the target number
+        console.log('Depth First Search:', depthArray.join(', ')); // Log the result
     }
 });
 
 document.getElementById("breadthBtn").addEventListener("click", function() {
     const number = parseInt(document.getElementById("highlightNumber").value);
     if (!isNaN(number)) {
-        breadth = []; // Clear breadth array before each search
+        const breadth = []; // Clear breadth array before each search
         breadthFirstSearchArray(head, breadth); // Call breadth-first search function
         const nodesToHighlight = breadth.slice(0, number); // Get nodes to highlight up to the specified number
         highlightNodes(nodesToHighlight, number); // Start highlighting nodes one by one
-        document.getElementById("breadthOutput").textContent = 'Breadth First Search: ' + breadth.join(', ');
+        console.log('Breadth First Search:', breadth.join(', ')); // Log the result
     }
 });
 
