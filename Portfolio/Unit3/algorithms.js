@@ -144,7 +144,6 @@ function highlightNodeWithValue(node, value) {
     highlightNodeWithValue(node.right, value);
 }
 
-// Function to unhighlight all leaves
 function unhighlightAllLeaves() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawTree(head);
