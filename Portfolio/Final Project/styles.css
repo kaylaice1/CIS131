@@ -1,0 +1,99 @@
+/* CSS styles for SCP Foundation page */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#scpEntries {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#scpEntries div {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#scpEntries h2 {
+    margin-top: 0;
+    color: #007bff;
+}
+
+#scpEntries p {
+    margin-bottom: 0;
+}
+
+/* CSS styles for SCP pages */
+.scp-container {
+    width: 100%;
+    max-width: 1000px; /* Set maximum width for SCP container */
+    margin: 0 auto; /* Center SCP container horizontally */
+    background-color: #f2f2f2; /* Light gray background color */
+    color: #333; /* Dark text color */
+    padding: 20px;
+    text-align: center; /* Align all text to the center */
+}
+
+/* Styles for SCP Database title */
+.scp-container h1 {
+    color: #000; /* Black text color */
+    text-align: center; /* Align SCP Database title to the center */
+}
+
+/* Styles for SCP entries */
+.scp-entry {
+    border: 1px solid #000000; /* Light gray border color */
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.scp-entry p {
+    font-size: 16px;
+    margin: 0; /* Remove default margin for paragraphs */
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* Dot styles */
+.dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #000000; /* Black color for the dot */
+    border-radius: 50%; /* Make it round */
+    margin-right: 10px; /* Adjust spacing between dot and text */
+}
+
+/* Navigation styles */
+nav ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+}
+
+nav ul li {
+    display: inline; /* Display navigation items inline */
+    margin-right: 10px; /* Adjust spacing between navigation items */
+}
+
+nav ul li:last-child {
+    margin-right: 0; /* Remove margin for the last navigation item */
+}
